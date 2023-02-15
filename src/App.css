@@ -40,3 +40,15 @@ body {
 .done {
     color: green;
 }
+
+.new-note-buttons {
+    margin-top: 2rem
+}
+
+.new-note-cancel {
+    float: left;
+}
+
+.new-note-save {
+    float: right;
+}

@@ -25,16 +25,25 @@ class TodoList extends React.Component {
     }
   }
 
+  async updateNote(data) {
+    try {
+      await axios
+        .put(`${ApiEnum.AllNotes}/${data.id}`, data)
+        .then((el) => this.setState({ elements: el.data }));
+    } catch (err) {
+      console.warn(err);
+    }
+  }
+
   setComplete(element, isComplete) {
-    const index = this.state.elements.findIndex((el) => el.id === element.id);
-    const newElements = this.state.elements;
-    newElements[index].isComplete = isComplete;
-    this.setState({ element: newElements });
+    const newObjToBackend = { ...element };
+    newObjToBackend.isComplete = isComplete;
+    this.updateNote(newObjToBackend);
   }
 
   markDone(element) {
+    console.log(element);
     this.setComplete(element, true);
-    console.log(Date.now());
   }
 
   markUnDone(element) {
@@ -42,6 +51,7 @@ class TodoList extends React.Component {
   }
 
   closeModal() {
+    console.log('sss');
     this.setState({ showModal: false });
   }
 
@@ -50,7 +60,8 @@ class TodoList extends React.Component {
   }
 
   saveEditedNote(el) {
-    console.log(el);
+    this.updateNote(el);
+    this.closeModal();
   }
 
   modify(el) {
@@ -67,6 +78,17 @@ class TodoList extends React.Component {
     console.log('click from child to parent!');
   };
 
+  customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  };
+
   render() {
     const elements = this.state.elements.map((el, i) => {
       //el key here or inside TodoItem?
@@ -74,7 +96,7 @@ class TodoList extends React.Component {
         <TodoItem
           key={i}
           element={el}
-          //which is corect?
+          //which is corect? with ()=> or bind?
           done={(el) => this.markDone(el)}
           unDone={this.markUnDone.bind(this)}
           modify={(el) => this.modify(el)}
@@ -84,15 +106,19 @@ class TodoList extends React.Component {
     });
     return (
       <div>
-        <Modal isOpen={this.state.showModal}>
+        <Modal
+          isOpen={this.state.showModal}
+          style={this.customStyles}
+          appElement={document.getElementById('root')}
+        >
           <div>
             <InputNote
               elements={this.state.editableNote}
-              // saveNote={(el) => this.saveEditedNote(el)}
+              saveNote={(el) => this.saveEditedNote(el)}
+              closeModal={this.closeModal.bind(this)}
             />
           </div>
         </Modal>
-
         <div>
           <h1 className='header'>To-Do list</h1>
         </div>
