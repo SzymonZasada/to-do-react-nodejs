@@ -42,7 +42,6 @@ class TodoList extends React.Component {
   }
 
   markDone(element) {
-    console.log(element);
     this.setComplete(element, true);
   }
 
@@ -51,7 +50,6 @@ class TodoList extends React.Component {
   }
 
   closeModal() {
-    console.log('sss');
     this.setState({ showModal: false });
   }
 
@@ -69,11 +67,7 @@ class TodoList extends React.Component {
     this.openModal();
   }
 
-  // which spelling is correct?
-  // noReference() {
-  //   console.log('click from child to parent!');
-  // }
-
+  // which spelling is correct-its ok?
   noReference = () => {
     console.log('click from child to parent!');
   };
