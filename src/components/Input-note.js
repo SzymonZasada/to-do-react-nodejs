@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, TextField } from '@mui/material';
 
 export function InputNote(props) {
-  const [title, setTile] = useState(props.elements.title ? props.elements.title : '');
+  const [title, setTile] = useState(props?.elements?.title ? props.elements.title : '');
 
   const changeTitleEvent = (event) => {
     const value = event.target.value;
@@ -12,8 +12,8 @@ export function InputNote(props) {
   const editNote = () => {
     const newNote = {
       title: title,
-      id: props.elements.id ? props.elements.id : 0,
-      isComplete: props.elements.isComplete ? props.elements.isComplete : false,
+      id: props?.elements?.id ? props.elements.id : 0,
+      isComplete: props?.elements?.isComplete ? props.elements.isComplete : false,
     };
     props.saveNote(newNote);
   };

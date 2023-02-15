@@ -5,7 +5,7 @@ import RemoveDoneIcon from '@mui/icons-material/RemoveDone';
 import DoneIcon from '@mui/icons-material/Done';
 import EditIcon from '@mui/icons-material/Edit';
 
-const TodoItem = (props) => {
+const TodoNote = (props) => {
   const isDone = props.element.isComplete;
 
   return (
@@ -37,4 +37,4 @@ const TodoItem = (props) => {
   );
 };
 
-export default TodoItem;
+export default TodoNote;
